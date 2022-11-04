@@ -2,7 +2,7 @@
   "name": "@jiter/example-ts-express-app",
   "version": "0.1.0",
   "description": "Example integration of Jiter and Express",
-  "main": "./lib/index.js",
+  "main": "./dist/index.js",
   "homepage": "https://jiter.dev",
   "author": "Pantheon Labs",
   "license": "Apache-2.0",
@@ -11,12 +11,14 @@
     "build": "tsc -p tsconfig.build.json --pretty",
     "start": "node dist/index.js",
     "dev": "ts-node-dev --exit-child --watch .env --ignore-watch ../web/.next --files --rs --respawn src/index.ts",
+    "proxy": "ngrok http 8000",
     "typecheck": "yarn build --noEmit"
   },
   "dependencies": {
-    "@jiter/node": "0.3.0-beta.2",
+    "@jiter/node": "^0.4.0",
     "dotenv": "^16.0.3",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "ngrok": "^4.3.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",

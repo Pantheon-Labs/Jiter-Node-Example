@@ -18,8 +18,7 @@ try {
     signingSecret: process.env.JITER_SIGNING_SECRET ?? '',
   });
 } catch (err) {
-  console.error(err);
-  console.info(
+  console.error(
     '\n\n🚨 Looks like Jiter failed to initialize; have you followed the setup steps in the README?\n\n',
   );
   process.exit();
@@ -36,4 +35,12 @@ app.use('/api', api);
 
 app.listen(port, () => {
   console.log(`\n\n🚀 Server started at http://localhost:${port}`);
+
+  if (process.env.BASE_URL?.includes('your-app.com')) {
+    console.warn(
+      '\n🚨 BASE_URL was not configured in .env; your events will not be handled. See the README for more info.\n\n',
+    );
+  } else {
+    console.log(`🪝 Webhook events will be sent to: ${process.env.BASE_URL}/api/webhooks/jiter`);
+  }
 });

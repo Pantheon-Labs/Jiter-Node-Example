@@ -32,7 +32,7 @@ events.get('/:id', async (req: Request, res: Response) => {
 
 // See https://docs.jiter.dev/docs/rest-api/create-event
 events.post('/', async (req: Request, res: Response) => {
-  const twentyMinutesFromNow = new Date(Date.now() + 1000 * 60 * 20);
+  const oneMinuteFromNow = new Date(Date.now() + 1000 * 60 * 1);
   try {
     const payload: BuyGroceriesEvent = {
       action: 'buyGroceries',
@@ -40,16 +40,16 @@ events.post('/', async (req: Request, res: Response) => {
     };
 
     const createdEvent = await createEvent({
-      destination: `${process.env.BASE_URL}/webhooks/jiter`,
+      destination: `${process.env.BASE_URL}/api/webhooks/jiter`,
       payload: JSON.stringify(payload),
-      scheduledTime: twentyMinutesFromNow.toISOString(),
+      scheduledTime: oneMinuteFromNow.toISOString(),
     });
 
     res.send(createdEvent);
   } catch (error: any) {
     console.error(error);
     const { message } = error.response.data;
-    res.status(error.status).json({ message, error });
+    res.status(500).json({ message });
   }
 });
 
