@@ -8,7 +8,8 @@ This app exposes API routes which allow a user to create reminders to purchase g
 
 ## Setup
 
-1. Install dependencies via `yarn` or `npm install`
+1. Install dependencies via `yarn`
+   - [Install `yarn`](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable) if you don't already have it installed
 2. Run `yarn setup` to create your local environment file (or optionally run `cp .env.sample .env`)
 3. Get your [API keys and signing secret](https://docs.jiter.dev/docs/getting-started) and add them to `.env`
 4. Start your local reverse proxy with `yarn proxy` and then copy the `https` value for `Forwarding` (e.g., `http://123456789ABC.ngrok.io`) and add it as the `BASE_URL` in your `.env`
