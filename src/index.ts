@@ -51,7 +51,7 @@ app.listen(port, async () => {
       await axios.get(baseUrl);
     } catch (err) {
       console.log(
-        '🚨 Your BASE_URL appears to be offline; did you start your ngrok server? See the README for more info.',
+        '🚨 Your BASE_URL appears to be offline; did you start your ngrok server and update your .env? See the README for more info.',
       );
     }
   }
