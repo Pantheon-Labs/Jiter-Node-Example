@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@jiter/node": "^0.4.0",
+    "axios": "^1.1.3",
     "dotenv": "^16.0.3",
     "express": "^4.17.1",
     "ngrok": "^4.3.3"

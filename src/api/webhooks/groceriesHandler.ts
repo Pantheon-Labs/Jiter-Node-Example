@@ -1,7 +1,7 @@
 import Jiter from '@jiter/node';
-import { PurchaseEvent } from '../types';
+import { PurchaseEvent } from '../../types';
 
-export const jiterWebhookEvent = Jiter.Middleware.webhookHandler<PurchaseEvent>(
+export const groceriesHandler = Jiter.Middleware.webhookHandler<PurchaseEvent>(
   ({ payload }) => {
     console.log('Signed, valid Jiter event received');
     // Now that the event was verified and a response was sent, you can continue with the payload:
