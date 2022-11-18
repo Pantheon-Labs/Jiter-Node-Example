@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import * as dotenv from 'dotenv';
 import express from 'express';
+import axios from 'axios';
 import Jiter from '@jiter/node';
 import { api } from './api';
 
@@ -10,9 +11,11 @@ const app = express();
 app.use(express.json());
 
 const port = 8000;
+const baseUrl = process.env.BASE_URL;
 
-// See https://docs.jiter.dev/docs/getting-started
+// Jiter Initialization
 try {
+  // See https://docs.jiter.dev/docs/getting-started
   Jiter.init({
     apiKey: process.env.JITER_API_KEY ?? '',
     signingSecret: process.env.JITER_SIGNING_SECRET ?? '',
@@ -24,6 +27,7 @@ try {
   process.exit();
 }
 
+// Helper method to guide users who hit the app from a browser
 app.get('/', (req, res) =>
   res.json({
     message:
@@ -31,16 +35,24 @@ app.get('/', (req, res) =>
   }),
 );
 
+// All API handlers are defined in their own files and are mounted into the app
 app.use('/api', api);
 
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`\n\n🚀 Server started at http://localhost:${port}`);
 
-  if (process.env.BASE_URL?.includes('your-app.com')) {
+  if (baseUrl?.includes('your-app.com') || !baseUrl) {
     console.warn(
       '\n🚨 BASE_URL was not configured in .env; your events will not be handled. See the README for more info.\n\n',
     );
   } else {
-    console.log(`🪝 Webhook events will be sent to: ${process.env.BASE_URL}/api/webhooks/jiter`);
+    console.log(`🪝 Webhook events will be sent to: ${baseUrl}/api/webhooks`);
+    try {
+      await axios.get(baseUrl);
+    } catch (err) {
+      console.log(
+        '🚨 Your BASE_URL appears to be offline; did you start your ngrok server? See the README for more info.',
+      );
+    }
   }
 });
