@@ -37,3 +37,5 @@ Once the app is up and running, there are a variety of routes you can utilize to
 | `GET`  | `/events/:id `        | Finds event by id                                                 |
 | `PUT`  | `/event/:id `         | Updates event by id                                               |
 | `POST` | `/api/webhooks/jiter` | Handles your payload                                              |
+
+After creating events, you'll see `console.log` output each time you receive a callback.
